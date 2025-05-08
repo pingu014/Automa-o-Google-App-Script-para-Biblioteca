@@ -80,3 +80,7 @@ Os valores são manipulados automaticamente para manter consistência nos regist
 ## 🚀 Objetivo
 
 Este projeto foi criado para facilitar o controle da Giroteca (biblioteca da turma), incentivando o cuidado com os prazos e promovendo responsabilidade entre os alunos. 👩‍🏫👨‍🏫
+
+# Exemplo de Planilha:
+
+[📊 Planilha](https://imgur.com/YmRUKfr)
