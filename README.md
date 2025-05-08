@@ -1,4 +1,4 @@
-**# 📚 Controle de Empréstimos de Livros – Biblioteca de 4º e 5° Anos para E.E.F Francisco Rufino (Novo Oriente - CE)**
+# **📚 Controle de Empréstimos de Livros – Biblioteca de 4º e 5° Anos para E.E.F Francisco Rufino (Novo Oriente - CE)**
 
 *Este repositório contém um script em Google Apps Script automatizado para gerenciar empréstimos de livros de uma turma escolar. Ele foi desenvolvido para funcionar em conjunto com uma planilha do Google Sheets, monitorando prazos de devolução, calculando atrasos e enviando e-mails automaticamente em casos de atraso. Tudo de forma simples e eficaz!*
 
