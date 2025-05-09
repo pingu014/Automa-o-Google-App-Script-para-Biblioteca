@@ -89,7 +89,7 @@ Este projeto foi criado para facilitar o controle da Giroteca (biblioteca da tur
 
 [📊 Planilha](https://imgur.com/YmRUKfr)
 
-# Atualização v1.0.1
+# Atualização v1.0.1 > [Link da nova versão](https://github.com/pingu014/Automa-o-Google-App-Script-para-Biblioteca/releases/tag/v0.0.1)
 
 ## ✅ Adicionado um trigger de tempo (time-driven trigger)
 Criada uma função separada para verificar e atualizar os atrasos diariamente, configure um gatilho de tempo para executá-la automaticamente todos os dias.
