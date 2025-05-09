@@ -39,13 +39,17 @@ O script é ativado automaticamente sempre que qualquer célula for editada (onE
 
 ##### Classifica a situação:
 
-- 🟢 Autorizado (até 13 dias de atraso)
-- 🟡 Observação (14 a 29 dias)
-- 🔴 Restrição (30 dias ou mais)
+> [!TIP]
+> Autorizado (até 13 dias de atraso)
+
+> [!WARNING]
+> Observação (14 a 29 dias)
+
+> [!CAUTION]
+> Restrição (30 dias ou mais)
 
 #### ✉️ 6. Envio de E-mail Automático
 ##### Se o livro estiver atrasado, envia um e-mail com:
-
 - Título do livro
 - Nome do aluno
 - Turma
@@ -84,3 +88,64 @@ Este projeto foi criado para facilitar o controle da Giroteca (biblioteca da tur
 # Exemplo de Planilha:
 
 [📊 Planilha](https://imgur.com/YmRUKfr)
+
+# Atualização v1.0.1
+
+## ✅ Adicionado um trigger de tempo (time-driven trigger)
+Criada uma função separada para verificar e atualizar os atrasos diariamente, configure um gatilho de tempo para executá-la automaticamente todos os dias.
+
+## ⏱️ Etapa 1: Criar a função verificaAtrasosDiarios
+#### Adicione essa nova função ao seu script:
+
+     function verificaAtrasosDiarios() {
+        const aba = '4° ANO "A"';
+        const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(aba);
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+
+        const ultimaLinha = sheet.getLastRow();
+
+        for (let linha = 2; linha <= ultimaLinha; linha++) {
+          const dataPrevista = sheet.getRange(linha, 6).getValue(); // F
+          const dataDevolucao = sheet.getRange(linha, 7).getValue(); // G
+
+          if (dataPrevista instanceof Date && !dataDevolucao) {
+            const dataLimpa = new Date(dataPrevista);
+            dataLimpa.setHours(0, 0, 0, 0);
+
+            const situacaoCell = sheet.getRange(linha, 10); // J
+
+            if (hoje > dataLimpa) {
+              sheet.getRange(linha, 9).setValue("ATRASADO"); // I
+
+              const diffMs = hoje - dataLimpa;
+              const diasAtraso = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+              sheet.getRange(linha, 8).setValue(diasAtraso); // H
+
+              if (diasAtraso >= 30) {
+                situacaoCell.setValue("restrito");
+              } else if (diasAtraso >= 14) {
+                situacaoCell.setValue("Observação");
+              } else {
+                situacaoCell.setValue("Autorizado");
+              }
+            } else {
+               sheet.getRange(linha, 8).clearContent(); // limpa dias de atraso
+               situacaoCell.setValue("Autorizado");
+              }
+            }
+          }
+        }
+
+## ✅ Etapa 2: Criar um gatilho de tempo
+### No editor de scripts (Apps Script), clique no ícone de relógio no menu lateral esquerdo.
+
+#### Clique em “+ Adicionar gatilho”.
+
+Em:
+1. Função a ser executada: selecione verificaAtrasosDiarios
+2. Tipo de gatilho: escolha Gatilho baseado em tempo
+3. Frequência: escolha Diariamente
+4. Horário: selecione o horário desejado (ex: entre 6h e 7h)
+
+*Com isso, sua planilha atualizará os dias de atraso (coluna H) e a situação (coluna J) automaticamente todos os dias, mesmo sem ninguém editar a planilha.*
